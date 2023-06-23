@@ -1,0 +1,21 @@
+---
+- name: Creating Terraform IoC
+  hosts: localhost
+  connection: local
+  collections:
+    - cloud.terraform
+  vars:
+    working_dir: runner/reference-architecture
+    my_terraform_build: tf
+  tasks:
+    - name: Initialize Terraform Provider
+      community.general.terraform:
+        project_path: /{{working_dir}}/{{my_terraform_build}}
+        state: absent
+        force_init: true
+    - name: Deploy Terraform Instance
+      community.general.terraform:
+        project_path: /{{working_dir}}/{{my_terraform_build}}
+        state: present
+      register: deployed_tf
+
