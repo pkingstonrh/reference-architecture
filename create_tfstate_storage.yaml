@@ -14,7 +14,7 @@
         name: "{{tfstate_storage_account_name}}"
         account_type: "Standard_LRS"
         encryption:
-          key_source: "Microsoft.storage" #Maybe insecure? It is the default but let's be verbose
+          key_source: "Microsoft.Storage" #Maybe insecure? It is the default but let's be verbose
           services:
             blob:
               enabled: true
