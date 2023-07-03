@@ -1,5 +1,5 @@
 ---
-- name: Create tfstate Resource Group
+- name: Create tfstate backend
   hosts: localhost
   connection: local
   gather_facts: false
