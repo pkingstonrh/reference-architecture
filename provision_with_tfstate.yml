@@ -12,6 +12,10 @@
     - name: Ensure Tfstate account is authenticated #Not sure if I'm doing this right tbh
       ansible.builtin.shell:
         cmd: export ARM_ACCESS_KEY=$(az storage account keys list --resource-group {{ tfstate_rg_name }} --account-name {{ tfstate_storage_account_name }} --query '[0.value]' -o tsv)
+    - name: Inject template vars
+      ansible.builtin.template:
+        src: /tf/{{ location_of_tfmain }}/main.tf.j2
+        dest /tf/{{ location_of_tfmain }}/main.tf
     - name: Initialize Terraform Provider
       community.general.terraform:
         project_path: /tf/{{ location_of_tfmain }}
