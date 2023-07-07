@@ -15,7 +15,7 @@
     - name: Inject template vars
       ansible.builtin.template:
         src: /tf/{{ location_of_tfmain }}/main.tf.j2
-        dest /tf/{{ location_of_tfmain }}/main.tf
+        dest: /tf/{{ location_of_tfmain }}/main.tf
     - name: Initialize Terraform Provider
       community.general.terraform:
         project_path: /tf/{{ location_of_tfmain }}
