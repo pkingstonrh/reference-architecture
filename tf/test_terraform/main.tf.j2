@@ -18,6 +18,15 @@ terraform {
 	}
 }
 
+data "terraform_remote_state" "foo" {
+	backend = "azurerm"
+	config = {
+		storage_account_name = "{{ tfstate_storage_account_name }}"
+		container_name = "{{ tfstate_container_name }}"
+		key = "terraform.tfstate"
+	}
+}
+
 provider "azurerm" {
 	features {}
 }
