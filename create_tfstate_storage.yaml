@@ -19,6 +19,8 @@
           services:
             blob:
               enabled: true
+        kind: "BlobStorage"
+        access_tier: "Cool"
     - name: Create blob container
       azure.azcollection.azure_rm_storageblob:
         resource_group: "{{ tfstate_rg_name }}"
