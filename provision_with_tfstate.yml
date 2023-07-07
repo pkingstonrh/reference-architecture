@@ -11,7 +11,7 @@
         dest: /tf
     - name: Ensure Tfstate account is authenticated #Not sure if I'm doing this right tbh
       ansible.builtin.shell:
-        cmd: export ARM_ACCESS_KEY=$(az storage account keys list --resource-group {{ tfstate_rg_name }} --account-name {{ tfstate_storage_account_name }} --query '[0.value]' -o tsv)
+        cmd: export ACCOUNT_KEY=$(az storage account keys list --resource-group {{ tfstate_rg_name }} --account-name {{ tfstate_storage_account_name }} --query '[0].value' -o tsv) && export ARM_ACCESS_KEY=$ACCOUNT_KEY
     - name: Inject template vars
       ansible.builtin.template:
         src: /tf/{{ location_of_tfmain }}/main.tf.j2
