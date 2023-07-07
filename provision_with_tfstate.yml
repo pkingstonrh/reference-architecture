@@ -7,7 +7,7 @@
   tasks:
     - name: Pull main.tf file
       ansible.builtin.git:
-        repo: {{git_repo}}
+        repo: "{{ git_repo }}"
         dest: /tf
     - name: Ensure Tfstate account is authenticated #Not sure if I'm doing this right tbh
       ansible.builtin.shell:
