@@ -20,9 +20,16 @@ provider "azurerm" {
 	skip_provider_registration = "true"
 }
 
-resource "azurerm_resource_group" "tfstate" {
+
+# This is what you'll use if the resource group doesn't exist
+#resource "azurerm_resource_group" "tfstate" {
+#  name     = "{{ tfstate_rg_name }}"
+#  location = "{{ region }}"
+#}
+
+# I'm using this because I want to keep it in my resource group
+data "azurerm_resource_group" "tfstate" {
   name     = "{{ tfstate_rg_name }}"
-  location = "{{ region }}"
 }
 
 resource "azurerm_storage_account" "tfstate" {
