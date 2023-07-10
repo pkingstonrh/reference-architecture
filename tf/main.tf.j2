@@ -5,6 +5,13 @@ terraform {
       version = "=3.0.0"
     }
   }
+	#maybe it's needed in both places?
+	backend "azurerm" {
+		storage_account_name = "{{ tfstate_storage_account_name }}"
+		container_name = "{{ tfstate_container_name }}"
+		key = "terraform.tfstate"
+		access_key = "{{ unsafe_storage_account_key }}"
+	}
 }
 
 data "terraform_remote_state" "tfstate" {
