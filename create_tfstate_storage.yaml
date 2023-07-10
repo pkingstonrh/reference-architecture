@@ -8,6 +8,7 @@
       ansible.builtin.git:
         repo: "{{ git_repo }}"
         dest: /tf
+      become: true
     - name: Inject template vars for create-remote-storage.tf
       ansible.builtin.template:
         src: /tf/{{ path_to_tf_state }}/create-remote-storage.tf.j2
