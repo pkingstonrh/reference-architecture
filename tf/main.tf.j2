@@ -7,6 +7,7 @@ terraform {
   }
 	#maybe it's needed in both places?
 	backend "azurerm" {
+		resource_group_name = "{{ tfstate_rg_name }}"
 		storage_account_name = "{{ tfstate_storage_account_name }}"
 		container_name = "{{ tfstate_container_name }}"
 		key = "terraform.tfstate"
@@ -17,6 +18,7 @@ terraform {
 data "terraform_remote_state" "tfstate" {
 	backend = "azurerm"
 	config = {
+		resource_group_name = "{{ tfstate_rg_name }}"
 		storage_account_name = "{{ tfstate_storage_account_name }}"
 		container_name = "{{ tfstate_container_name }}"
 		key = "terraform.tfstate"
