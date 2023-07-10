@@ -10,15 +10,35 @@ terraform {
       storage_account_name = "{{ tfstate_storage_account_name }}"
       container_name       = "{{ tfstate_container_name }}"
       key                  = "terraform.tfstate"
+			access_key = "{{ unsafe_storage_account_key }}"
   }
 
 }
 
 provider "azurerm" {
-  features {}
+	features {}
+	#HIGHLY TEMPORARY
+ 	client_id = "{{ unsafe_client_id }}"
+  client_secret = "{{ unsafe_client_secret }}"
+  tenant_id = "{{ unsafe_tenant_id }}"
+  subscription_id = "{{ unsafe_subscription_id }}"
+	skip_provider_registration = "true"
 }
 
-resource "azurerm_resource_group" "state-demo-secure" {
-  name     = "state-demo"
-  location = "eastus"
+#You would uncomment this typically and allow it to have its own resorce group
+#resource "azurerm_resource_group" "state-demo-secure" {
+#  name     = "state-demo"
+#  location = "eastus"
+#}
+
+data "azurerm_resource_group" "tfstate" {
+  name     = "{{ tfstate_rg_name }}"
+}
+
+# This is the simplest thing to provision in a resource group I think
+resource "azurerm_virtual_network" "main" {
+	name = "demonetwork"
+	address_space = ["10.0.0.0/16"]
+	location = "{{ region }}"
+	resurce_group_name = data.azurerm_resource_group.tfstate.name
 }
