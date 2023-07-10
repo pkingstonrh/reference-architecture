@@ -23,21 +23,3 @@
         project_path: /tf/{{ path_to_tf_state }}
         state: present
       register: deployed_tf_state
-    - name: Ensure terraform is logged in
-      ansible.builtin.shell:
-        cmd: ACCOUNT_KEY=$(az storage account keys list --resource-group {{ tfstate_rg_name }} --account-name {{ tfstate_storage_account_name }} --query '[0].value' -o tsv); export ARM_ACCESS_KEY=$ACCOUNT_KEY
-    - name: Inject template vars for tf main
-      ansible.builtin.template:
-        src: /tf/{{ path_to_tf_main }}/main.tf.j2
-        dest: /tf/{{ path_to_tf_main }}/main.tf
-      become: true
-    - name: Initialize terraform instance for main deployment
-      community.general.terraform:
-        project_path: /tf/{{ path_to_tf_main }}
-        state: absent
-        force_init: true
-    - name: Deploy terraform instance for main deployment
-      community.general.terraform:
-        project_path: /tf/{{ path_to_tf_main }}
-        state: present
-      register: deployed_tf_main
