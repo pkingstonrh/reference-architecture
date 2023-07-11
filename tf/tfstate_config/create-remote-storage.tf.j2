@@ -14,10 +14,10 @@ terraform {
 provider "azurerm" {
 	features {}
 	skip_provider_registration = "true"
- 	client_id       = "{{ client_id }}"
-  	client_secret   = "{{ secret }}"
-  	tenant_id       = "{{ tenant }}"
-  	subscription_id = "{{ subscription_id }}"
+ 	client_id       = "{{ azure_client_id }}"
+  	client_secret   = "{{ azure_secret }}"
+  	tenant_id       = "{{ azure_tenant }}"
+  	subscription_id = "{{ azure_subscription_id }}"
 
 }
 
