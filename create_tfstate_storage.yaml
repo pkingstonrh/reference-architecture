@@ -8,8 +8,7 @@
       file:
         path: /tf
         state: directory
-      become: true
-      become_method: su
+      delegate_to: localhost
       
     - name: Pull tf file
       ansible.builtin.git:
