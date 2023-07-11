@@ -13,10 +13,6 @@ terraform {
 
 provider "azurerm" {
 	features {}
- 	#client_id = "{{ unsafe_client_id }}"
-  #client_secret = "{{ unsafe_client_secret }}"
-  #tenant_id = "{{ unsafe_tenant_id }}"
-  #subscription_id = "{{ unsafe_subscription_id }}"
 	skip_provider_registration = "true"
 }
 
