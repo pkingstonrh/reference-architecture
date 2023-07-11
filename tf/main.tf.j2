@@ -11,7 +11,7 @@ terraform {
 		storage_account_name = "{{ tfstate_storage_account_name }}"
 		container_name = "{{ tfstate_container_name }}"
 		key = "terraform.tfstate"
-		access_key = "{{ azure_storage_account_key }}"
+		access_key = "{{ tfstate_storage_account_key }}"
 	}
 }
 
@@ -22,7 +22,7 @@ data "terraform_remote_state" "tfstate" {
 		storage_account_name = "{{ tfstate_storage_account_name }}"
 		container_name = "{{ tfstate_container_name }}"
 		key = "terraform.tfstate"
-		access_key = "{{ azure_storage_account_key }}"
+		access_key = "{{ tfstate_storage_account_key }}"
 	}
 }
 
