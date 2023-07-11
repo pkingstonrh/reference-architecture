@@ -3,6 +3,7 @@
   hosts: localhost
   connection: local
   tasks:
-    - name: List env
-      ansible.builtin.command: env
-      register: output
+    - name: Get storage account info
+      azure.azcollection.azure_rm_storageaccount_info:
+        resource_group: patrick-rg
+        name: patricktfstate
