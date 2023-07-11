@@ -1,0 +1,8 @@
+---
+- name: List the environment for testing purposes
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: List env
+      ansible.builtin.command: env
+      register: output
