@@ -4,6 +4,10 @@
   connection: local
   gather_facts: false
   tasks:
+    - name: Create directory for tf files
+      file:
+        path: /tf
+        state: directory
     - name: Pull tf file
       ansible.builtin.git:
         repo: "{{ git_repo }}"
