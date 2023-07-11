@@ -12,9 +12,6 @@
       ansible.builtin.git:
         repo: "{{ git_repo }}"
         dest: /tf
-    - name: Ensure Tfstate account is authenticated #Not sure if I'm doing this right tbh
-      ansible.builtin.shell: az storage account keys list --resource-group {{ tfstate_rg_name }} --account-name {{ tfstate_storage_account_name }} --query '[0].value' -o tsv
-      register: tfstate_storage_account_key
     - name: Inject template vars
       ansible.builtin.template:
         src: /tf/{{ location_of_tfmain }}/main.tf.j2
