@@ -8,6 +8,8 @@
       file:
         path: /tf
         state: directory
+      become: true
+      
     - name: Pull tf file
       ansible.builtin.git:
         repo: "{{ git_repo }}"
