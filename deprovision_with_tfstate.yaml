@@ -1,0 +1,24 @@
+---
+- name: Destroying terraform IoC
+  hosts: localhost
+  connection: local
+  vars:
+    azure_client_id: "{{ lookup('env', 'AZURE_CLIENT_ID') }}"
+    azure_secret: "{{ lookup('env', 'AZURE_SECRET') }}"
+    azure_tenant: "{{ lookup('env', 'AZURE_TENANT') }}"
+    azure_subscription_id: "{{ lookup('env', 'AZURE_SUBSCRIPTION_ID') }}"
+  tasks:
+    - name: Pull main.tf file
+      ansible.builtin.git:
+        repo: "{{ git_repo }}"
+        dest: /tf
+    - name: Inject template vars
+      ansible.builtin.template:
+        src: /tf/{{ location_of_tfmain }}/main.tf.j2
+        dest: /tf/{{ location_of_tfmain }}/main.tf
+    - name: Deprovision Terraform Instance
+      community.general.terraform:
+        project_path: /tf/{{ location_of_tfmain }}
+        state: absent
+        force_init: true
+      register: deployed_tf
