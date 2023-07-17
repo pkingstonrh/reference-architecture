@@ -18,3 +18,4 @@
       resource_group: "{{tfstate_rg_name}}"
       name: "{{tfstate_storage_account_name}}"
       state: absent
+      force_delete_nonempty: true
