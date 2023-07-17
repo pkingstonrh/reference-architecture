@@ -1,0 +1,24 @@
+---
+- name: Create tfstate Resource Group
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: Ensure resource group present
+    azure.azcollection.azure_rm_resourcegroup:
+      name: "{{tfstate_rg_name}}"
+      location: "{{region}}"
+  - name: Create storage account
+    azure.azcollection.azure_rm_storageaccount:
+      resource_group: "{{tfstate_rg_name}}"
+      name: "{{tfstate_storage_account_name}}"
+      account_type: "Standard_LRS"
+      encryption:
+        key_source: "Microsoft.storage" #Maybe insecure? It is the default but let's be verbose
+        services:
+          blob:
+            enabled: true
+  - name: Create blob container
+    azure.azcollection.azure_rm_storageblob:
+      resource_group: "{{tfstate_rg_name}}"
+      container: "{{tfstate_container_name}}"
+      storage_account_name: "{{tfstate_storage_account_name}}"
